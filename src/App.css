@@ -10,9 +10,26 @@
     margin-left: 20px;
 }
 
+.arrow-icon{
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 20px;
+}
+
+.first-branch{
+    margin-bottom: 20px;
+}
+
+.check-box{
+    height: 15px;
+    width: 15px;
+    margin-right: 10px;
+}
+
 .single-component {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .child-component{
