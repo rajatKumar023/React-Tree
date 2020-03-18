@@ -58,6 +58,7 @@ class TreeComponent extends Component {
                             title={c.title}
                             children={c.children}
                             index={index}
+                            component={c}
                             id={c.id}
                             key={c.id}
                             checked={c.checked}
@@ -117,16 +118,14 @@ class TreeComponent extends Component {
         this.props.updateChildren(children, this.props.index);
     };
 
-    changeChildElementsState = (changedChildren, index, checked) => {
-        console.log('changing child elements');
-        console.log(changedChildren);
-        console.log(checked);
-        let children = changedChildren;
-        children[index].checked = checked;
-        if (children[index].children != null && children[index].children.length > 0) {
-            children[index].children = this.changeCheckedState(children[index].children, checked);
+    changeChildElementsState = (childrenElements, index, checked) => {
+        let children = childrenElements;
+        if (children != null && children.length > 0) {
+            children = this.changeCheckedState(children, checked);
         }
-        this.props.updateChildren(children, index);
+        if (children != null) {
+            this.props.updateChildren(children, index);
+        }
     };
 
     changeCheckedState = (children, checked) => {

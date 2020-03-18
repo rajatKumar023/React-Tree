@@ -61,6 +61,7 @@ class App extends Component {
                         checked={c.checked}
                         index={index}
                         children={c.children}
+                        component={c}
                         removeChild={(index) => {
                             this.removeChild(index);
                         }
