@@ -71,8 +71,8 @@ class App extends Component {
                         updateChildren={(children, ind) => {
                             this.updateChildren(children, ind);
                         }}
-                        changeChildElementsState={(index)=>{
-                            this.changeChildElementsState(index);
+                        changeChildElementsState={(children, index, checked) => {
+                            this.changeChildElementsState(index, checked);
                         }}
                     />
                 )
@@ -111,8 +111,24 @@ class App extends Component {
             });
     };
 
-    changeChildElementsState = (index)=>{
-        
+    changeChildElementsState = (index, checked) => {
+        this.setState((prevState, props) => {
+            let components = prevState.components;
+            if (components[index].children != null && components[index].children.length > 0) {
+                components[index].children = this.changeCheckedState(components[index].children, checked);
+            }
+            return {components};
+        });
+    };
+
+    changeCheckedState = (children, checked) => {
+        children.map((child, index) => {
+            children[index].checked = checked;
+            if (children[index].children != null && children[index].children.length > 0) {
+                children[index].children = this.changeCheckedState(children[index].children, checked);
+            }
+        });
+        return children;
     };
 
 }

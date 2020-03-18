@@ -28,6 +28,7 @@ class TreeComponent extends Component {
                         className="check-box"
                         checked={this.props.checked}
                         onChange={() => {
+                            this.props.changeChildElementsState(this.props.children, this.props.index, !this.props.checked);
                             this.props.listenCheckChange(this.props.index);
                         }
                         }/>
@@ -69,6 +70,9 @@ class TreeComponent extends Component {
                                 let actualChildren = this.props.children;
                                 actualChildren[childIndex].children = children;
                                 this.props.updateChildren(actualChildren, this.props.index);
+                            }}
+                            changeChildElementsState={(children, index, checked) => {
+                                this.changeChildElementsState(children, index, checked);
                             }}
                         />
                     )
@@ -112,6 +116,29 @@ class TreeComponent extends Component {
         }
         this.props.updateChildren(children, this.props.index);
     };
+
+    changeChildElementsState = (changedChildren, index, checked) => {
+        console.log('changing child elements');
+        console.log(changedChildren);
+        console.log(checked);
+        let children = changedChildren;
+        children[index].checked = checked;
+        if (children[index].children != null && children[index].children.length > 0) {
+            children[index].children = this.changeCheckedState(children[index].children, checked);
+        }
+        this.props.updateChildren(children, index);
+    };
+
+    changeCheckedState = (children, checked) => {
+        children.map((child, index) => {
+            children[index].checked = checked;
+            if (children[index].children != null && children[index].children.length > 0) {
+                children[index].children = this.changeCheckedState(children[index].children, checked);
+            }
+        });
+        return children;
+    };
+
 }
 
 export default TreeComponent;
