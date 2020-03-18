@@ -23,18 +23,23 @@ class TreeComponent extends Component {
                         />
                         }
                     </div>
-                    <input type="checkbox" className="check-box" checked={this.props.checked} onChange={() => {
-                        console.log('action configured');
-                        this.props.listenCheckChange(this.props.index);
-
-                    }}/>
-                    <div>{this.props.title}</div>
+                    <input
+                        type="checkbox"
+                        className="check-box"
+                        checked={this.props.checked}
+                        onChange={() => {
+                            this.props.listenCheckChange(this.props.index);
+                        }
+                        }/>
+                    <div>
+                        {this.props.title}
+                    </div>
                     <FontAwesomeIcon
                         className="fav-icons"
                         icon={faPlus}
                         onClick={() => this.addChild({
                             id: 4,
-                            checked: false,
+                            checked: this.props.checked,
                             title: 'new component',
                             children: null
                         }, this.props.index)}
