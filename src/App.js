@@ -71,6 +71,9 @@ class App extends Component {
                         updateChildren={(children, ind) => {
                             this.updateChildren(children, ind);
                         }}
+                        changeChildElementsState={(index)=>{
+                            this.changeChildElementsState(index);
+                        }}
                     />
                 )
                 }
@@ -81,11 +84,7 @@ class App extends Component {
     updateChildren = (children, index) => {
         this.setState((prevState, props) => {
             let components = prevState.components;
-            console.log('printing main components');
-            console.log(components);
             components[index].children = children;
-            console.log('printing children');
-            console.log(components[index].children);
             return {components};
         })
     };
@@ -111,6 +110,11 @@ class App extends Component {
                 return {components};
             });
     };
+
+    changeChildElementsState = (index)=>{
+        
+    };
+
 }
 
 export default App;
